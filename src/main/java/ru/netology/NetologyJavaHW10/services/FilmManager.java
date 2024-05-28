@@ -1,28 +1,16 @@
 package ru.netology.NetologyJavaHW10.services;
 
 public class FilmManager {
-    private String title;
     private String[] films = new String[0];
-    private int maxAllowed;
+    private final int maxAllowed;
+
 
     public FilmManager() {
-        this.maxAllowed = maxAllowed;
-    }
-
-    public FilmManager(int maxAllowed) {
         this.maxAllowed = 5;
     }
 
-    public FilmManager(String title) {
-        this.title = title;
-    }
-
-    public void setTitle(String title) {
-        this.title = title;
-    }
-
-    public String getTitle() {
-        return title;
+    public FilmManager(int maxAllowed) {
+        this.maxAllowed = maxAllowed;
     }
 
     public void addFilm(String film) {
@@ -42,20 +30,17 @@ public class FilmManager {
     public String[] findLast() {
         int resultLength;
 
-        if (films.length < 5) {
+        if (films.length < maxAllowed) {
             resultLength = films.length;
         } else {
-            resultLength = 5;
+            resultLength = maxAllowed;
         }
 
-        String[] all = new String[resultLength];
-        String[] reverse = new String[all.length];
+        String[] reverse = new String[resultLength];
 
         for (int i = 0; i < reverse.length; i++) {
-            reverse[i] = all[all.length - 1 - i];
+            reverse[i] = films[films.length - 1 - i];
         }
         return reverse;
-
     }
-
 }

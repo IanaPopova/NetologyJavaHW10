@@ -4,38 +4,63 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 public class FilmManagerTest {
-
+    FilmManager films = new FilmManager();
     FilmManager manager = new FilmManager();
 
-    FilmManager film1 = new FilmManager("Бладшот");
-    FilmManager film2 = new FilmManager("Вперёд");
-    FilmManager film3 = new FilmManager("Отель Белград");
-    FilmManager film4 = new FilmManager("Джентльмены");
-    FilmManager film5 = new FilmManager("Человек-невидимка");
-    FilmManager film6 = new FilmManager("Тролли. Мировой тур");
-    FilmManager film7 = new FilmManager("Номер один");
+    String film1 = "Бладшот";
+    String film2 = "Вперёд";
+    String film3 = "Отель Белград";
+    String film4 = "Джентльмены";
+    String film5 = "Человек-невидимка";
+    String film6 = "Тролли. Мировой тур";
+    String film7 = "Номер один";
 
+
+    @Test
+    public void FilmManager() {
+        FilmManager films = new FilmManager(7);
+
+        films.addFilm(film1);
+        films.addFilm(film2);
+        films.addFilm(film3);
+        films.addFilm(film4);
+        films.addFilm(film5);
+        films.addFilm(film6);
+        films.addFilm(film7);
+
+        String[] expected = { film7, film6, film5, film4, film3, film2, film1 };
+        String[] actual = films.findLast();
+
+        Assertions.assertArrayEquals(expected, actual);
+    }
 
     @Test
     public void shouldAddFilms() {
 
-        manager.addFilm(film1);
+        films.addFilm(film1);
 
-
-        String[] expected = {};
-        String[] actual = manager.findAll();
+        String[] expected = {film1};
+        String[] actual = films.findAll();
 
         Assertions.assertArrayEquals(expected, actual);
+    }
 
+    @Test
+    public void zeroFilms() {
+
+        String[] expected = {};
+        String[] actual = films.findAll();
+
+        Assertions.assertArrayEquals(expected, actual);
     }
 
     @Test
     public void shouldAddOneFilm() {
 
-        manager.addFilm("Бладшот");
+        films.addFilm(film1);
 
-        String[] expected = {"Бладшот"};
-        String[] actual = manager.findAll();
+        String[] expected = {film1};
+        String[] actual = films.findAll();
 
         Assertions.assertArrayEquals(expected, actual);
     }
@@ -43,15 +68,15 @@ public class FilmManagerTest {
     @Test
     public void shouldAddSixFilms() {
 
-        manager.addFilm("Бладшот");
-        manager.addFilm("Вперёд");
-        manager.addFilm("Отель Белград");
-        manager.addFilm("Джентльмены");
-        manager.addFilm("Человек-невидимка");
-        manager.addFilm("Тролли. Мировой тур");
+        films.addFilm(film1);
+        films.addFilm(film2);
+        films.addFilm(film3);
+        films.addFilm(film4);
+        films.addFilm(film5);
+        films.addFilm(film6);
 
-        String[] expected = { "Бладшот" };
-        String[] actual = manager.findAll();
+        String[] expected = {film1, film2, film3, film4, film5, film6};
+        String[] actual = films.findAll();
 
         Assertions.assertArrayEquals(expected, actual);
     }
@@ -60,36 +85,65 @@ public class FilmManagerTest {
 
     public void shouldAddAllFilms() {
 
-        manager.addFilm("Бладшот");
-        manager.addFilm("Вперёд");
-        manager.addFilm("Отель Белград");
-        manager.addFilm("Джентльмены");
-        manager.addFilm("Человек-невидимка");
-        manager.addFilm("Тролли. Мировой тур");
-        manager.addFilm("Номер один");
+        films.addFilm(film1);
+        films.addFilm(film2);
+        films.addFilm(film3);
+        films.addFilm(film4);
+        films.addFilm(film5);
+        films.addFilm(film6);
+        films.addFilm(film7);
 
-        String[] expected = {};
-        String[] actual = manager.findAll();
+        String[] expected = {film1, film2, film3, film4, film5, film6, film7};
+        String[] actual = films.findAll();
 
         Assertions.assertArrayEquals(expected, actual);
-
     }
 
     @Test
 
     public void shouldShowLastFilmsReversed() {
 
-        manager.addFilm("Отель Белград");
-        manager.addFilm("Джентльмены");
-        manager.addFilm("Человек-невидимка");
-        manager.addFilm("Тролли. Мировой тур");
-        manager.addFilm("Номер один");
+        films.addFilm(film1);
+        films.addFilm(film2);
+        films.addFilm(film3);
+        films.addFilm(film4);
+        films.addFilm(film5);
+        films.addFilm(film6);
+        films.addFilm(film7);
 
-        String[] expected = {};
-        String[] actual = manager.findLast();
+        String[] expected = { film7, film6, film5, film4, film3 };
+        String[] actual = films.findLast();
 
         Assertions.assertArrayEquals(expected, actual);
     }
 
+    @Test
 
+    public void shouldShowLastFiveFilmsReversed() {
+
+        films.addFilm(film1);
+        films.addFilm(film2);
+        films.addFilm(film3);
+        films.addFilm(film4);
+        films.addFilm(film5);
+
+        String[] expected = { film5, film4, film3, film2, film1 };
+        String[] actual = films.findLast();
+
+        Assertions.assertArrayEquals(expected, actual);
+    }
+
+    @Test
+
+    public void shouldShowLastFilmsReversedIfLessThanFive() {
+
+        films.addFilm(film1);
+        films.addFilm(film2);
+
+
+        String[] expected = { film2, film1 };
+        String[] actual = films.findLast();
+
+        Assertions.assertArrayEquals(expected, actual);
+    }
 }
